@@ -18,5 +18,5 @@ def clean_files(input_path):
             os.system("mv ../Inputs/"+file+" ../Outputs/"+search_string)
 
 if __name__ == "__main__":
-    file_name = clean_files("../Inputs/Sn2.inp")
+    file_name = clean_files("../Outputs/Sn2/Sn2.inp")
     print(file_name)

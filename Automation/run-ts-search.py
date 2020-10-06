@@ -15,6 +15,6 @@ def run_ts_search(path_to_orca, path_to_input, path_to_output):
 
 if __name__ == "__main__":
     path_to_orca="~/Library/Orca421/orca"
-    path_to_input="../Inputs/Sn2.inp"
-    path_to_output="../Outputs/Sn2.out"
+    path_to_input="../Inputs/NucleophilcSubstCarbonyl.inp"
+    path_to_output="../Outputs/NucleophilcSubstCarbonyl.out"
     run_ts_search(path_to_orca, path_to_input, path_to_output)
