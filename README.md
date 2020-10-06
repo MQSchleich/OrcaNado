@@ -35,8 +35,8 @@ run the following commands:
 
 ```conda update pip```
 
-```conda install -c openbabel openbabel```
+```conda install -c conda-forge openbabel```
 
 ```conda install -c conda-forge rdkit```
 
-```conda install nglview -c conda-forge```
+```conda install -c conda-forge  nglview```
