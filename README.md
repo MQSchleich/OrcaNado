@@ -3,7 +3,7 @@
 TODO: Extraction of useful information 
 
 What is problematic though, is the use of non-windows platforms to compute the molecules.
-What 
+Ngview might be cool for visualising, gotta test it out. 
 Nice to have: 
 * Predicted outputs 
 * Optimized geometries 
