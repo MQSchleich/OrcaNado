@@ -1,4 +1,4 @@
-# OrcaAutomation
+# Orca Automation
 ## Transition State Search 
 TODO: Extraction of useful information 
 
@@ -26,6 +26,7 @@ echo 'export PATH=path-to-ORCA:$PATH; export LD_LIBRARY_PATH=path-to-ORCA:$LD_LI
 source ~/.bash_profile
 ##Common Errors 
 * Underscore in loaded xyz file. 
+* did not escape new_line in xyz-file.
 #Chemical Data Manipulation 
 Required software packages are: StringIO, nglview, RDKit, pybel. 
 T install all required packages install Conda or best the whole Anaconda distribution. 

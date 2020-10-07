@@ -1,2 +1,3 @@
 ! TPSS def2-SVP  opt
-* xyz 0 1FOVSUE.xyz
+
+* xyzfile 0 1 FOVSUEdb.xyz

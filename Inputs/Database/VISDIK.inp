@@ -1,2 +1,3 @@
 ! TPSS def2-SVP  opt
-* xyz 0 1VISDIK.xyz
+
+* xyzfile 0 1 VISDIKdb.xyz
