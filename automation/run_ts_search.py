@@ -1,5 +1,5 @@
-from Automation.run_input import run_input
-from Automation.clean_files import clean_files
+from automation.run_input import run_input
+from automation.clean_files import clean_files
 import os
 
 def run_ts_search(path_to_orca, path_to_input, path_to_output):

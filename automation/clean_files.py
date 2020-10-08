@@ -1,5 +1,6 @@
 import os
 from re import search
+
 def clean_files(input_path):
     """
     Cleans input files
@@ -18,5 +19,5 @@ def clean_files(input_path):
             os.system("mv ../Inputs/"+file+" ../Outputs/"+search_string)
 
 if __name__ == "__main__":
-    file_name = clean_files("../Outputs/Sn2/Sn2.inp")
+    file_name = clean_files("../Inputs/ABEDOC.inp")
     print(file_name)
