@@ -41,3 +41,21 @@ run the following commands:
 ```conda install -c conda-forge rdkit```
 
 ```conda install -c conda-forge  nglview```
+# Chemical Databases 
+Install pgAdmin for a nice PostgreSQL GUI 
+
+https://www.pgadmin.org/download/
+
+Follow the tutorial on 
+
+https://iwatobipen.wordpress.com/2020/06/02/communicate-chembl27-with-rdkit-postgres-cartridge-and-sqlalchemy-rdkit-chembl-postgres-razi/
+
+And: 
+ 
+https://www.rdkit.org/docs/Install.html
+
+To search your data folder type in SQL 
+>SHOW data_directory; 
+
+Show postgresql.conf
+>SHOW config_file; 
