@@ -59,3 +59,23 @@ To search your data folder type in SQL
 
 Show postgresql.conf
 >SHOW config_file; 
+
+The idea though, is to extract the RDKit extension out of the directory and
+use it on any server. Look in conda envs there it should be after running 
+> conda install -c rdkit rdkit-postgresql
+
+#Pymatgen 
+Pymatgen is a python library for chemoinformatics built to last. 
+The documnetation can be accessed via this link https://pymatgen.org/. 
+There is a paper about the library (https://doi.org/10.1016/j.commatsci.2012.10.028).
+Installation of Pymatgen is done via the command: 
+>conda install --channel conda-forge pymatgen
+
+Prior to get access to the database via pymatgen set your API key
+>pmg config --add PMG_MAPI_KEY <API-Key>
+
+Check out examples on GitHub: 
+>https://github.com/materialsvirtuallab/matgenb/tree/master/notebooks
+
+# Interesting Chemistry Projects
+* IBMRxns

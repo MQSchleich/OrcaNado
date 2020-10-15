@@ -1,7 +1,7 @@
 import os
 from re import search
 
-def clean_files(input_path):
+def clean_files(input_path, path_to_output_folder):
     """
     Cleans input files
     :param input_path: name of input file
@@ -10,7 +10,7 @@ def clean_files(input_path):
     file_name = os.path.split(input_path)[-1]
     search_string = file_name.split(".")[0]
     files = []
-    os.system("mkdir ../Outputs/"+search_string)
+    os.system("mkdir ../" + path_to_output_folder+"/"+search_string)
     for (dirpath, dirnames, filenames) in os.walk("../Inputs"):
         files.extend(filenames)
     for file in files:

@@ -72,15 +72,21 @@ def make_input(header, body, filename):
 
 if __name__ == "__main__":
     path_to_input_files ="Inputs"
-    database_path ="../Databases/df_62k.json"
+    database_path ="../databases/df_62k.json"
     type_of_geometry_opt="! TPSS def2-SVP  opt\n\n"
-    type_of_calculation="""! def2-SVP nevpt2
-
-    %casscf nel    8
-            norb   8
-            nroots 5
-            switchstep nr
-            end
+    type_of_calculation="""! UKS B3LYP ZORA-def2-TZVP def2/J RIJCOSX TightSCF Grid5 ZORA
+# Increasing the DFT grid accuracy on molybdenum (atom number 42)
+%method SpecialGridAtoms 42
+SpecialGridIntAcc 7
+end
+%tddft
+        orbwin[0] = 0,0,-1,-1 # Selecting the alpha set (orbwin[0]). Selecting donor orbital range : 0 to 0 (Mo 1s orbital only) and acceptor orbital range: -1 to -1 (meaning all virtual orbitals)
+        orbwin[1] = 0,0,-1,-1 # Selecting the beta set in the same way as the alpha set. Not necessary if system is closed-shell.
+        doquad true # Calculate quadrupole contributions.
+        nroots 60 # Setting the number of roots (transitions) to be calculated.
+        maxdim 10 # Setting the scaling of maximum dimension of the expansion space.
+end
+* xyzfile 0 1
     """
     test = True
     convert_json_database_to_input(database_path=database_path, type_of_geometry_opt=type_of_geometry_opt,
