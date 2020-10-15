@@ -1,15 +1,17 @@
 # Orca Automation
+##How to use
+Run inside the automatation folder
+> sudo python3 convert_database_to_input.py 
+
+Run inside the main folder: 
+> sudo python3 main.py
+
+Grab a coffee, travel to southeast asia, bring me a souvenir. 
 ## Transition State Search 
 TODO: Extraction of useful information 
 
 What is problematic though, is the use of non-windows platforms to compute the molecules.
 Ngview might be cool for visualising, gotta test it out. 
-Nice to have: 
-* Predicted outputs 
-* Optimized geometries 
-* Then run -> generate input files?  
-* generate movie 
-* run orca in parallel
 
 ##UV-Vis Spectra 
 Goal: Cleaning of files, extraction of the useful information 
@@ -27,6 +29,7 @@ source ~/.bash_profile
 ##Common Errors 
 * Underscore in loaded xyz file. 
 * did not escape new_line in xyz-file.
+* wrong relative path in xyz file (always think from the directory of execution)
 #Chemical Data Manipulation 
 Required software packages are: StringIO, nglview, RDKit, pybel. 
 T install all required packages install Conda or best the whole Anaconda distribution. 
@@ -79,3 +82,7 @@ Check out examples on GitHub:
 
 # Interesting Chemistry Projects
 * IBMRxns
+* https://www.nature.com/sdata/policies/repositories
+* https://www.iochem-bd.org/
+* https://nomad-lab.eu/index.php?page=repo-arch
++ https://www.ebi.ac.uk/chembl/
