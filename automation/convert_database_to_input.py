@@ -73,8 +73,11 @@ def make_input(header, body, filename):
 if __name__ == "__main__":
     path_to_input_files ="Inputs"
     database_path ="../databases/df_62k.json"
-    type_of_geometry_opt="! TPSS def2-SVP  opt\n\n"
-    type_of_calculation="""! UKS B3LYP ZORA-def2-TZVP def2/J RIJCOSX TightSCF Grid5 ZORA
+    type_of_geometry_opt=""""%pal nprocs 8 end
+                         ! TPSS def2-SVP  opt\n\n"""
+    type_of_calculation="""%pal nprocs 8 end
+    
+    ! UKS B3LYP ZORA-def2-TZVP def2/J RIJCOSX TightSCF Grid5 ZORA
 # Increasing the DFT grid accuracy on molybdenum (atom number 42)
 %method SpecialGridAtoms 42
 SpecialGridIntAcc 7

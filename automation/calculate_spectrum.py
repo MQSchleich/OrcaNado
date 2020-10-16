@@ -1,5 +1,4 @@
 import os
-import automation.run_input as run_input
 import automation.clean_files as clean_files
 
 def calculate_spectrum(path_to_orca,
@@ -41,6 +40,18 @@ def plot_spectrum(path_to_spectrum):
     """
     pass
     #TODO: Implement the spectrum saving as png
+
+def run_input(path_to_orca, path_to_input, path_to_output, output_folder):
+    """
+    runs any input
+    :param path_to_input:
+    :param path_to_output:
+    :return:
+    """
+    os.system(path_to_orca + " " + path_to_input + "> " + path_to_output)
+    #clean_files(path_to_input, path_to_output_folder=output_folder)
+
+
 
 if __name__ == "__main__":
     path_to_orca="~/Library/Orca421/orca"

@@ -86,3 +86,7 @@ Check out examples on GitHub:
 * https://www.iochem-bd.org/
 * https://nomad-lab.eu/index.php?page=repo-arch
 + https://www.ebi.ac.uk/chembl/
+
+# Distributed Computing 
+
++ https://www.freecodecamp.org/news/a-thorough-introduction-to-distributed-systems-3b91562c9b3c/
