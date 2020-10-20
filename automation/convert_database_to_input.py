@@ -1,10 +1,16 @@
 import pandas as pd
 import numpy as np
+from progress.bar import IncrementalBar
+
+
+
+
 
 def convert_json_database_to_input(database_path,
                                    type_of_geometry_opt,
                                    type_of_calculation,
                                    path_to_input_files,
+                                   num_molecules = 10,
                                    test=False):
     """
     converts a database with xyz to input files with specified commands. The method extracts a xyz file from the
@@ -22,30 +28,33 @@ def convert_json_database_to_input(database_path,
     df_database  = pd.read_json(database_path, orient='split')
     xyz_coordinates = df_database["xyz_pbe_relaxed"].tolist()
     ref_codes = df_database["refcode_csd"].tolist()
-    body_line = "* xyzfile 0 1 "+path_to_input_files+"/"
+    body_line = "* xyzfile 0 1 "+path_to_input_files
     seperator_line = "\n$new_job\n\n"
     if test:
         #writing xyz
-        for i in range(10):
+        for i in range(num_molecules):
             content=[xyz_coordinates[i]]
             write_file("../Inputs/" + ref_codes[i] + "db.xyz", content)
 
         #writing geometry_optimisation_input
-        for i in range(10):
+        for i in range(num_molecules):
             content = [type_of_geometry_opt, body_line+ref_codes[i]+"db.xyz\n",
                        seperator_line, type_of_calculation, body_line+ref_codes[i]+".xyz\n"]
             write_file("../Inputs/" + ref_codes[i] + ".inp", content)
     else:
         #writing xyz
+        incremental_bar = IncrementalBar("Building .xyz files", max =len(df_database*2))
         for i in range(len(df_database)):
             content=[xyz_coordinates[i]]
             write_file("../Inputs/" + ref_codes[i] + "db.xyz", content)
+            incremental_bar.next()
 
         #writing geometry_optimisation_input
-        for i in ragne(len(df_database)):
+        for i in range(len(df_database)):
             content = [type_of_geometry_opt, body_line+ref_codes[i]+"db.xyz\n"]
             write_file("../Inputs/" + ref_codes[i] + ".inp", content)
-
+            incremental_bar.next()
+        incremental_bar.close()
 
 def write_file(filename: str, content:list):
     """
@@ -71,10 +80,10 @@ def make_input(header, body, filename):
     write_file(filename, content)
 
 if __name__ == "__main__":
-    path_to_input_files ="Inputs"
+    path_to_input_files =""
     database_path ="../databases/df_62k.json"
-    type_of_geometry_opt=""""%pal nprocs 8 end
-                         ! TPSS def2-SVP  opt\n\n"""
+    type_of_geometry_opt="""%pal nprocs 8 end
+ ! TPSS def2-SVP  opt\n\n"""
     type_of_calculation="""%pal nprocs 8 end
     
     ! UKS B3LYP ZORA-def2-TZVP def2/J RIJCOSX TightSCF Grid5 ZORA
@@ -89,9 +98,8 @@ end
         nroots 60 # Setting the number of roots (transitions) to be calculated.
         maxdim 10 # Setting the scaling of maximum dimension of the expansion space.
 end
-* xyzfile 0 1
     """
     test = True
     convert_json_database_to_input(database_path=database_path, type_of_geometry_opt=type_of_geometry_opt,
                                    path_to_input_files = path_to_input_files,
-                                   type_of_calculation=type_of_calculation, test=test)
+                                   type_of_calculation=type_of_calculation, test = test)

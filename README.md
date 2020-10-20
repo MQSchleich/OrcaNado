@@ -90,3 +90,6 @@ Check out examples on GitHub:
 # Distributed Computing 
 
 + https://www.freecodecamp.org/news/a-thorough-introduction-to-distributed-systems-3b91562c9b3c/
+
+# Error on cluster
+* Parallisation is bugy. Posted on forum: https://orcaforum.kofo.mpg.de/viewtopic.php?f=11&t=6633
