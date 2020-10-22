@@ -1,6 +1,6 @@
 import os
-import automation.clean_files as clean_files
-
+import clean_files as clean_files
+import convert_database_to_input as db
 def calculate_spectrum(path_to_orca,
                        path_to_input,
                        path_to_output,
@@ -14,7 +14,7 @@ def calculate_spectrum(path_to_orca,
     :param output_folder:
     :return: None
     """
-    run_input.run_input(path_to_orca, path_to_input, path_to_output, output_folder)
+    run_input(path_to_orca, path_to_input, path_to_output, output_folder)
     make_spectrum(path_to_orca, path_to_output, command)
     clean_files.clean_files(path_to_input, output_folder)
 
@@ -56,5 +56,5 @@ def run_input(path_to_orca, path_to_input, path_to_output, output_folder):
 if __name__ == "__main__":
     path_to_orca="~/Library/Orca421/orca"
     path_to_input="../Inputs/methane.inp"
-    path_to_output = "../Outputs/methane/methane.out"
-    make_spectrum(path_to_orca=path_to_orca, path_to_output=path_to_output)
+    path_to_output = "../Outputs/methane"
+    calculate_spectrum(path_to_orca=path_to_orca, path_to_input = path_to_input, path_to_output=path_to_output)

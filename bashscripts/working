@@ -1,0 +1,25 @@
+#! /bin/bash
+#$ -S /bin/bash
+#$ -cwd
+#$ -l vf=1.9G
+OOO=/opt/openmpi-2.1.6-rdma
+ORCAD=/opt/Orca/orca_4_2_0_linux_x86-64__shared_openmpi216
+export PATH=$OOO/bin:$ORCAD:$PATH
+export LD_LIBRARY_PATH=$OOO/lib64:$ORCAD
+
+ulimit -Ss 60000
+JOBNAME=$1
+
+TMPDIR=/tmp/${USER}
+mkdir -p $TMPDIR
+ORCA_TMPDIR=$(mktemp -d "${TMPDIR}/${JOBNAME}.XXX")
+
+HERE=$PWD
+cd $ORCA_TMPDIR
+cp $HERE/${JOBNAME}.inp ./
+
+$ORCAD/orca ${JOBNAME}.inp > ${JOBNAME}.out
+
+cp -nr * $HERE/
+
+rm -rf ${ORCA_TMPDIR}
