@@ -1,6 +1,7 @@
 import os
 import clean_files as clean_files
-import convert_database_to_input as db
+
+
 def calculate_spectrum(path_to_orca,
                        path_to_input,
                        path_to_output,
@@ -14,10 +15,13 @@ def calculate_spectrum(path_to_orca,
     :param output_folder:
     :return: None
     """
-    run_input(path_to_orca, path_to_input, path_to_output, output_folder)
-    make_spectrum(path_to_orca, path_to_output, command)
-    clean_files.clean_files(path_to_input, output_folder)
-
+    try:
+        run_input(path_to_orca, path_to_input, path_to_output, output_folder)
+        make_spectrum(path_to_orca, path_to_output, command)
+        make_spectrum(path_to_orca, path_to_output, command=" IR -x0300 -x14000")
+        clean_files.clean_files(path_to_input, output_folder)
+    except:
+        RuntimeError
 
 
 

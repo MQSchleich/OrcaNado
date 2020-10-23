@@ -91,6 +91,8 @@ Check out examples on GitHub:
 
 + https://www.freecodecamp.org/news/a-thorough-introduction-to-distributed-systems-3b91562c9b3c/
 
+# GPU 
+* http://practicalcheminformatics.blogspot.com/2020/06/wicked-fast-cheminformatics-with-nvidia.html
 # Error on cluster
 * Parallelisation is buggy. Posted on forum: https://orcaforum.kofo.mpg.de/viewtopic.php?f=11&t=6633
 * copy pasting stuff into vim is not a joke okay? Don't use too many lines, take care you copy everything (yeah thats 
