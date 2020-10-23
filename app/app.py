@@ -12,7 +12,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 import dash_daq as daq
 #from dash_bio_utils import  styles_parser as sparser
-import utils.parser as parser, styles_parser as sparser
+from utils import parser as parser, styles_parser as sparser
 import dash_bio
 
 try:
@@ -129,22 +129,6 @@ def layout():
                 className='control-tabs',
                 children=[
                     dcc.Tabs(id='mol3d-tabs', value='what-is', children=[
-                        dcc.Tab(
-                            label='About',
-                            value='what-is',
-                            children=html.Div(className='control-tab', children=[
-                                html.H4(className='what-is', children='What is Molecule3D?'),
-                                html.P('Molecule3D is a visualizer that allows you '
-                                       'to view biomolecules in multiple representations: '
-                                       'sticks, spheres, and cartoons.'),
-                                html.P('You can select a preloaded structure, or upload your own, '
-                                       'in the "Data" tab. A sample structure is also '
-                                       'available to download.'),
-                                html.P('In the "View" tab, you can change the style and '
-                                       'coloring of the various components of your molecule.')
-                            ])
-                        ),
-
                         dcc.Tab(
                             label='Data',
                             value='upload-download',
@@ -435,12 +419,11 @@ def callbacks(_app):
             mt,
             custom_colors
     ):
-
+        small_molecule=False
         if demostr is not None:
             copy2(demostr, './str.pdb')
             fname = './str.pdb'
         elif contents is not None and demostr is None:
-            print(filename[0])
             try:
                 content_type, content_string = str(contents).split(',')
                 decoded_contents = base64.b64decode(
@@ -448,6 +431,7 @@ def callbacks(_app):
                 if re.search(r'\.xyz$', filename[0]):
                     f = tempfile.NamedTemporaryFile(
                         suffix=".xyz", delete=False, mode='w+')
+                    small_molecule = True
                 else:
                     f = tempfile.NamedTemporaryFile(
                         suffix=".pdb", delete=False, mode='w+')
@@ -468,12 +452,12 @@ def callbacks(_app):
             mdata = json.load(fm)
 
         # Create the cartoon style from the decoded contents
-        datstyle = sparser.create_style(fname, mol_style, color_style, **custom_colors)
+        datstyle = sparser.create_style(fname, mol_style, color_style, **custom_colors, small_molecule=small_molecule)
 
         fstyle = files_data_style(datstyle)
         with open(fstyle) as sf:
             data_style = json.load(sf)
-
+        print(data_style)
         # Delete all the temporary files that were created
         for x in [fname, fmodel, fstyle]:
             if os.path.isfile(x):

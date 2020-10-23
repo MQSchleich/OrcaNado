@@ -5,8 +5,9 @@ molecule that is rendered using the Molecule3dViewer component in Dash
 Bio."""
 
 import json
-import re
 import os
+import re
+import pybel as pb
 
 ATOM_COLOR_DICT = {
     "C": "#c8c8c8",
@@ -121,7 +122,8 @@ def create_style(
         residue_type_colors=None,
         atom_colors=None,
         chain_colors=None,
-        residue_colors=None
+        residue_colors=None,
+        small_molecule=False,
 ):
     """Function to create the different styles (stick, cartoon, sphere)
     using the protein data bank (PDB) file as input. This function outputs
@@ -227,15 +229,28 @@ def create_style(
                 }
 
         else:
-            if atm_type in atom_colors:
-                data[index] = {
-                    "color": atom_colors[atm_type],
-                    "visualization_type": "stick"
-                }
+            if small_molecule:
+
+                if atm_type in atom_colors:
+                    data[index]={
+                        "color": atom_colors[atm_type],
+                        "visualization_type": style
+                    }
+                else:
+                    data[index]={
+                        "color": "#330000",
+                        "visualization_type": style
+                    }
             else:
-                data[index] = {
-                    "color": "#330000",
-                    "visualization_type": "stick"
-                }
+                if atm_type in atom_colors:
+                    data[index] = {
+                        "color": atom_colors[atm_type],
+                        "visualization_type": "stick"
+                    }
+                else:
+                    data[index] = {
+                        "color": "#330000",
+                        "visualization_type": "stick"
+                    }
 
     return json.dumps(data)
