@@ -95,3 +95,7 @@ Check out examples on GitHub:
 * Parallelisation is buggy. Posted on forum: https://orcaforum.kofo.mpg.de/viewtopic.php?f=11&t=6633
 * copy pasting stuff into vim is not a joke okay? Don't use too many lines, take care you copy everything (yeah thats 
 right). Doesn't happen with automation, though
+
+# Cited Works 
+
+Hai Nguyen, David A Case, Alexander S Rose; NGLview - Interactive molecular graphics for Jupyter notebooks, Bioinformatics, , btx789, https://doi.org/10.1093/bioinformatics/btx789
