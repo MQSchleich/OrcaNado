@@ -1,5 +1,5 @@
 # Orca Automation
-##How to use
+## How to use
 Run inside the automatation folder
 > sudo python3 convert_database_to_input.py 
 
@@ -13,20 +13,20 @@ TODO: Extraction of useful information
 What is problematic though, is the use of non-windows platforms to compute the molecules.
 Ngview might be cool for visualising, gotta test it out. 
 
-##UV-Vis Spectra 
-Goal: Cleaning of files, extraction of the useful information 
-##X-Ray Spectra 
-Goal: Cleaning of the files and extraction of the useful information 
-##open mpi 
-shell$ gunzip -c openmpi-4.0.5.tar.gz | tar xf -
+## UV-Vis Spectra 
+> calculate_spectrum(filename)
+## X-Ray Spectra 
+> calculate_spectrum(filename)
+## open mpi 
+```shell$ gunzip -c openmpi-4.0.5.tar.gz | tar xf -
 shell$ cd openmpi-4.0.5
 shell$ ./configure --prefix=/usr/local
 <...lots of output...>
-shell$ make all install`
-##setting path 
+shell$ make all install``
+## Setting path 
 echo 'export PATH=path-to-ORCA:$PATH; export LD_LIBRARY_PATH=path-to-ORCA:$LD_LIBRARY_PATH'  >> ~/.bash_profile
 source ~/.bash_profile
-##Common Errors 
+## Common Errors 
 * Underscore in loaded xyz file. 
 * did not escape new_line in xyz-file.
 * wrong relative path in xyz file (always think from the directory of execution)
@@ -67,7 +67,7 @@ The idea though, is to extract the RDKit extension out of the directory and
 use it on any server. Look in conda envs there it should be after running 
 > conda install -c rdkit rdkit-postgresql
 
-#Pymatgen 
+# Pymatgen 
 Pymatgen is a python library for chemoinformatics built to last. 
 The documnetation can be accessed via this link https://pymatgen.org/. 
 There is a paper about the library (https://doi.org/10.1016/j.commatsci.2012.10.028).

@@ -36,15 +36,6 @@ def make_spectrum(path_to_orca,
     os.system(path_to_orca+"_mapspc "+path_to_output+command)
 
 
-def plot_spectrum(path_to_spectrum):
-    """
-    plots a spectrum and saves file as png with 300 dpi
-    :param path_to_spectrum: path to the saved spectrum
-    :return: none
-    """
-    pass
-    #TODO: Implement the spectrum saving as png
-
 def run_input(path_to_orca, path_to_input, path_to_output, output_folder):
     """
     runs any input
