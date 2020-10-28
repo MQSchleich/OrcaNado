@@ -18,7 +18,7 @@ def calculate_spectrum(path_to_orca,
     try:
         run_input(path_to_orca, path_to_input, path_to_output, output_folder)
         make_spectrum(path_to_orca, path_to_output, command)
-        make_spectrum(path_to_orca, path_to_output, command=" IR -x0300 -x14000")
+        #make_spectrum(path_to_orca, path_to_output, command=" IR -x0300 -x14000")
         clean_files.clean_files(path_to_input, output_folder)
     except:
         RuntimeError
@@ -50,6 +50,6 @@ def run_input(path_to_orca, path_to_input, path_to_output, output_folder):
 
 if __name__ == "__main__":
     path_to_orca="~/Library/Orca421/orca"
-    path_to_input="../Inputs/methane.inp"
-    path_to_output = "../Outputs/methane"
+    path_to_input="../Inputs/FOYNIQ.inp"
+    path_to_output = "../Outputs"
     calculate_spectrum(path_to_orca=path_to_orca, path_to_input = path_to_input, path_to_output=path_to_output)

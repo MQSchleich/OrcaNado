@@ -1,16 +1,16 @@
 import pandas as pd
 import numpy as np
-from progress.bar import IncrementalBar
 
 
 
 
 
-def convert_json_database_to_input(database_path,
-                                   type_of_geometry_opt,
-                                   type_of_calculation,
-                                   path_to_input_files,
-                                   num_molecules = 10,
+def convert_json_database_to_input(database_path:str,
+                                   type_of_calculation:str,
+                                   path_to_input_files:str,
+                                   num_molecules = 30,
+                                   multi_job = True,
+                                   type_of_geometry_opt = None,
                                    test=False):
     """
     converts a database with xyz to input files with specified commands. The method extracts a xyz file from the
@@ -29,32 +29,28 @@ def convert_json_database_to_input(database_path,
     xyz_coordinates = df_database["xyz_pbe_relaxed"].tolist()
     ref_codes = df_database["refcode_csd"].tolist()
     body_line = "* xyzfile 0 1 "+path_to_input_files
-    seperator_line = "\n$new_job\n\n"
-    if test:
-        #writing xyz
-        for i in range(num_molecules):
-            content=[xyz_coordinates[i]]
-            write_file("../Inputs/" + ref_codes[i] + "db.xyz", content)
+    if multi_job:
+        seperator_line = "\n$new_job\n\n"
+    if not test:
+        num_molecules= len(df_database)
+    #writing xyz
+    for i in range(num_molecules):
+        content=[xyz_coordinates[i]]
+        write_file("../Inputs/" + ref_codes[i] + "db.xyz", content)
 
-        #writing geometry_optimisation_input
-        for i in range(num_molecules):
-            content = [type_of_geometry_opt, body_line+ref_codes[i]+"db.xyz\n",
-                       seperator_line, type_of_calculation, body_line+ref_codes[i]+".xyz\n"]
+    #writing geometry_optimisation_input
+    for i in range(num_molecules):
+        if multi_job:
+            content=[type_of_geometry_opt,
+                      body_line + ref_codes[i] + "db.xyz\n",
+                      seperator_line,
+                      type_of_calculation,
+                      body_line + ref_codes[i] + ".xyz\n"]
             write_file("../Inputs/" + ref_codes[i] + ".inp", content)
-    else:
-        #writing xyz
-        incremental_bar = IncrementalBar("Building .xyz files", max =len(df_database*2))
-        for i in range(len(df_database)):
-            content=[xyz_coordinates[i]]
-            write_file("../Inputs/" + ref_codes[i] + "db.xyz", content)
-            incremental_bar.next()
-
-        #writing geometry_optimisation_input
-        for i in range(len(df_database)):
-            content = [type_of_geometry_opt, body_line+ref_codes[i]+"db.xyz\n"]
+        else:
+            content=[type_of_calculation,
+                      body_line + ref_codes[i] + "db.xyz\n"]
             write_file("../Inputs/" + ref_codes[i] + ".inp", content)
-            incremental_bar.next()
-        incremental_bar.close()
 
 def write_file(filename: str, content:list):
     """
@@ -84,22 +80,48 @@ if __name__ == "__main__":
     database_path ="../databases/df_62k.json"
     type_of_geometry_opt="""%pal nprocs 8 end
  ! TPSS def2-SVP  opt\n\n"""
-    type_of_calculation="""%pal nprocs 8 end
-    
-    ! UKS B3LYP ZORA-def2-TZVP def2/J RIJCOSX TightSCF Grid5 ZORA
-# Increasing the DFT grid accuracy on molybdenum (atom number 42)
-%method SpecialGridAtoms 42
-SpecialGridIntAcc 7
-end
+    type_of_calculation="""% nprocs 8 end\n
+!B3LYP ZORA-def2-TZVP RIJCOSX Grid5 ZORA GRIDX6 D3BJ ABC
+
+
+
 %tddft
-        orbwin[0] = 0,0,-1,-1 # Selecting the alpha set (orbwin[0]). Selecting donor orbital range : 0 to 0 (Mo 1s orbital only) and acceptor orbital range: -1 to -1 (meaning all virtual orbitals)
-        orbwin[1] = 0,0,-1,-1 # Selecting the beta set in the same way as the alpha set. Not necessary if system is closed-shell.
-        doquad true # Calculate quadrupole contributions.
-        nroots 60 # Setting the number of roots (transitions) to be calculated.
-        maxdim 10 # Setting the scaling of maximum dimension of the expansion space.
+orbwin[0] = 0,0,-1,-1		# donor orbital range : 0 to 0
+				# (C 1s orbital only) 
+                     		# acceptor orbital range: -1 to -1
+				# (meaning all virtual orbitals)
+
+orbwin[1] = 0,0,-1,-1		# Not necessary if system is closed-shell.
+
+doquad true 			# Calculate quadrupole contributions.
+
+nroots 50 			# Setting the number of roots (transitions)
+				# to be calculated.
+
+maxdim 300 			# Setting the maximum dimension of the expansion space.
+				# Should be 5-10 times the no. of nroots for
+				# favorable convergence.
+MaxCore 1024
 end
-    """
+
+%method
+D3S6 1.0000
+D3A1 0.3981
+D3S8 1.9889
+D3A2 4.4211
+end
+%method
+ScalHFX     = 0.57
+ScalDFX     = 0.35
+end
+
+%output
+print[p_mos] true
+print[p_basis] 5
+end"""
     test = True
-    convert_json_database_to_input(database_path=database_path, type_of_geometry_opt=type_of_geometry_opt,
-                                   path_to_input_files = path_to_input_files,
-                                   type_of_calculation=type_of_calculation, test = test)
+    convert_json_database_to_input(database_path=database_path,
+                                   type_of_calculation=type_of_calculation,
+                                   path_to_input_files=path_to_input_files,
+                                   multi_job=False,
+                                   test=test)
