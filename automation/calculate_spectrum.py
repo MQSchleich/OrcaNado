@@ -5,7 +5,7 @@ import clean_files as clean_files
 def calculate_spectrum(path_to_orca,
                        path_to_input,
                        path_to_output,
-                       output_folder = "Output",
+                       output_folder = "Dev_Outs",
                        command= " ABSQ -eV -x0100 -x1900 -w25.0 -n500"):
     """
     function to calculate spectra, it is just a small variation of the input calculation

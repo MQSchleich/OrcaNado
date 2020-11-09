@@ -48,6 +48,8 @@ def test_optimal_cores(max_cores:int = 64,
 
 
 if __name__ == "__main__":
+    input_single_point = """
+    """
     input_1 = """!TPSS def2-SVP Grid4 TightSCF RIJCOSX autoaux TightOPT D3BJ ABC
 
 %method

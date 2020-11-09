@@ -123,5 +123,6 @@ end"""
     convert_json_database_to_input(database_path=database_path,
                                    type_of_calculation=type_of_calculation,
                                    path_to_input_files=path_to_input_files,
+                                   num_molecules=168,
                                    multi_job=False,
                                    test=test)
