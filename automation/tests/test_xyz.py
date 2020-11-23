@@ -6,9 +6,9 @@ def test_xyz():
     :return:
     """
     xyz = XYZ_Reader.XYZ("files/ABAFEQdb.xyz")
-    atoms = ['O', 'S', 'O', 'C', 'H', 'C', 'C', 'C', 'H', 'C', 'C', 'H', 'C', 'H', 'C', 'H', 'H', 'H', 'C', 'C', 'C',
-             'C', 'H', 'C', 'H', 'N', 'C', 'H', 'C', 'H', 'H', 'S', 'O', 'C', 'N', 'N', 'C', 'H', 'H', 'C',
-             'H', 'H', 'H', 'C', 'H']
+    atoms = ['O', 'S', 'O', 'C', 'H', 'Cl', 'C', 'C', 'H', 'C', 'C', 'H', 'C', 'H', 'C', 'H', 'H', 'H', 'C', 'C', 'C',
+             'C', 'H', 'C', 'H', 'N', 'C', 'H', 'C', 'H', 'H', 'S', 'O', 'C', 'N', 'N', 'C', 'H', 'H', 'C', 'H', 'H',
+             'H', 'C', 'H']
     num_atoms = 45
     true_read = "45\n\nO      39.55724515      33.75271314      38.40917207 \nS      40.85906611      34.05164612      " \
            "38.96498639 \nO      42.08066828      33.95284000      38.19595313 \nC      42.32571194      32.73322762  " \
@@ -36,11 +36,12 @@ def test_xyz():
            "35.68390108      45.54521868 \nH      42.69364229      35.35046375      46.91564229 \nH      " \
            "44.82329787      33.72815772      44.30050633 \nC      45.01169104      31.79751710      45.24114695 \nH" \
            "      45.73147637      31.41638123      44.51869652 \n"
-    true_atom_set = {'C', 'S', 'N', 'O', 'H'}
+    true_atom_set = {'C', 'S', 'N', 'O', 'H', 'Cl'}
+    true_difference_set = {'S', 'N', 'O', 'Cl'}
     test_xyz_atom_list(xyz, atoms, num_atoms)
     test_xyz_num_atoms(xyz, num_atoms)
     test_xyz_read(xyz, true_read)
-    test_attributes(xyz, true_atom_set)
+    test_attributes(xyz, true_atom_set, true_difference_set)
 
 
 def test_xyz_atom_list(xyz:XYZ_Reader, atoms, num_atoms):
@@ -53,10 +54,20 @@ def test_xyz_atom_list(xyz:XYZ_Reader, atoms, num_atoms):
     assert len(xyz.atoms) == num_atoms, "The length of the element list does not match the true number of atoms"
     assert xyz.atoms == atoms, "The element list does not match the true element list."
 
-def test_xyz_num_atoms(xyz:XYZ_Reader, num_atoms):
+def test_xyz_num_atoms(xyz:XYZ_Reader,
+                       num_atoms
+                       ):
+    """
+
+    :param xyz:
+    :param num_atoms:
+    :return:
+    """
     assert xyz.atom_count == num_atoms, "The counting method for atoms did not work"
 
-def test_xyz_read(xyz:XYZ_Reader, true_read):
+def test_xyz_read(xyz:XYZ_Reader,
+                  true_read
+                  ):
     """
 
     :param xyz: Instance of xyz
@@ -66,7 +77,8 @@ def test_xyz_read(xyz:XYZ_Reader, true_read):
     assert xyz.read == true_read, "The file read is perfect"
 
 def test_attributes(xyz:XYZ_Reader,
-                    true_atom_set
+                    true_atom_set,
+                    true_difference_set
                     ):
     """
 
@@ -75,7 +87,8 @@ def test_attributes(xyz:XYZ_Reader,
     :return:
     """
     assert xyz.atom_set == true_atom_set, "The set of elements is not correct."
-
+    assert xyz.atoms_bigger == true_difference_set, ("The difference set is not correct. The real set is: ",
+                                                     true_difference_set, "The calculated one is: ", xyz.atoms_bigger)
 
 if __name__ == "__main__":
     test_xyz()
