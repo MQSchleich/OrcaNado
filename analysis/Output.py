@@ -21,7 +21,8 @@ class Output:
         return len(num_orbitals)
 
     def get_mo_distribution(self):
-        table=re.findall(r"ORBITALS.*MULLIKEN", self.read, re.DOTALL)
+        table = re.findall(r"\n------------------\nMOLECULAR ORBITALS"
+                                            r"\n------------------\n(.*)\n\n\n\n", self.read, re.DOTALL)
         return table
 
     def get_num_atoms(self):
@@ -49,7 +50,7 @@ class Output:
 if __name__ == "__main__":
     file_1=Output("TestMOs/ABAFEQ/ABAFEQ_fast_RJ.out")
     num_atoms=file_1.get_num_atoms()
-    orbitals=file_1.get_orbital_energies()
+    orbitals=file_1.get_mo_distribution()
     num_orbitals=file_1.count_mos()
-    print(num_orbitals)
-    print(num_atoms)
+    file = open("orbitals.txt", "w")
+    file.write(orbitals[0])

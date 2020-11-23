@@ -108,3 +108,10 @@ right). Doesn't happen with automation, though
 # Cited Works 
 
 Hai Nguyen, David A Case, Alexander S Rose; NGLview - Interactive molecular graphics for Jupyter notebooks, Bioinformatics, , btx789, https://doi.org/10.1093/bioinformatics/btx789
+>  @software{mendeleev2014,
+    author = {Mentel, Łukasz},
+    title = {{mendeleev} -- A Python resource for properties of chemical elements, ions and isotopes},
+    url = {https://github.com/lmmentel/mendeleev},
+    version = {0.3.6},
+    date = {2014--},
+}

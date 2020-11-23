@@ -2,6 +2,15 @@ import pandas as pd
 import numpy as np
 
 
+class Input:
+    """
+
+    """
+
+    def __init__(self):
+        pass
+
+    def start_position(self):
 
 
 
